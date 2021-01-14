@@ -1,5 +1,5 @@
 declare module "react-native-voip-push-notification" {
-  export default interface IRNVoipPushNotification {
+  export default class RNVoipPushNotification {
     RNVoipPushRemoteNotificationsRegisteredEvent: string;
     RNVoipPushRemoteNotificationReceivedEvent: string;
     RNVoipPushDidLoadWithEvents: string;
