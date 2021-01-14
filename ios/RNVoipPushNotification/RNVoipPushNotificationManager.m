@@ -29,6 +29,8 @@ NSString *const RNVoipPushDidLoadWithEvents = @"RNVoipPushDidLoadWithEvents";
 RCT_EXPORT_MODULE();
 
 static bool _isVoipRegistered = NO;
+NSString* _voipToken = @"";
+
 static NSMutableDictionary<NSString *, RNVoipPushNotificationCompletion> *completionHandlers = nil;
 
 
@@ -160,6 +162,8 @@ static NSMutableDictionary<NSString *, RNVoipPushNotificationCompletion> *comple
     for (NSUInteger i = 0; i < voipTokenLength; i++) {
         [hexString appendFormat:@"%02x", bytes[i]];
     }
+    
+    _voipToken = hexString;
 
     RNVoipPushNotificationManager *voipPushManager = [RNVoipPushNotificationManager allocWithZone: nil];
     [voipPushManager sendEventWithNameWrapper:RNVoipPushRemoteNotificationsRegisteredEvent body:[hexString copy]];
@@ -230,6 +234,12 @@ RCT_EXPORT_METHOD(onVoipNotificationCompleted:(NSString *)uuid)
 #ifdef DEBUG
     RCTLog(@"[RNVoipPushNotificationManager] onVoipNotificationCompleted() not found. uuid = %@", uuid);
 #endif
+}
+
+// --- get latest voip push token
+RCT_EXPORT_METHOD(getVoipToken:(RCTPromiseResolveBlock)resolve
+                  rejecter:(RCTPromiseRejectBlock)reject) {
+  resolve(_voipToken);
 }
 
 @end

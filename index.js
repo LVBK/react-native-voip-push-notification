@@ -110,4 +110,8 @@ export default class RNVoipPushNotification {
         RNVoipPushNotificationManager.onVoipNotificationCompleted(uuid);
     }
 
+    static async getVoipToken() {
+        return await RNVoipPushNotificationManager.getVoipToken();
+    }
+
 }
